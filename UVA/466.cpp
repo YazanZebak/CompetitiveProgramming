@@ -11,7 +11,7 @@ matrix rotate(matrix &A) {
 
     for(int i = 0 ; i < A.size() ; i++)
         for(int j = 0 ; j < A[0].size() ; j++)
-            ret[A[0].size() - j - 1][i] = A[i][j] ;
+            ret[j][A.size() - 1 - i] = A[i][j] ;
 
     return A = ret ;
 }
@@ -67,23 +67,18 @@ int main() {
             continue;
         }
 
-        rotate(A) ;
-        if(A == B) {
-            cout << "Pattern " << c << " was rotated 270 degrees." << endl ;
-            continue ;
-        }
+        bool ok = 0 ;
 
-        rotate(A) ;
-        if(A == B) {
-            cout << "Pattern " << c << " was rotated 180 degrees." << endl ;
-            continue ;
+        for(int i = 0 ; i < 3 && !ok ; i++) {
+            rotate(A) ;
+            if(A == B) {
+                ok = 1 ;
+                if(i == 0) cout << "Pattern " << c << " was rotated 90 degrees." << endl ;
+                if(i == 1) cout << "Pattern " << c << " was rotated 180 degrees." << endl ;
+                if(i == 2) cout << "Pattern " << c << " was rotated 270 degrees." << endl ;
+            }
         }
-
-        rotate(A) ;
-        if(A == B) {
-            cout << "Pattern " << c << " was rotated 90 degrees." << endl ;
-            continue ;
-        }
+        if(ok) continue ;
 
         rotate(A) ;
         reflect(A) ;
@@ -93,25 +88,17 @@ int main() {
             continue ;
         }
 
-        rotate(A) ;
-        if(A == B) {
-            cout << "Pattern " << c << " was reflected vertically and rotated 270 degrees." << endl;
-            continue ;
+        for(int i = 0 ; i < 3 && !ok ; i++) {
+            rotate(A) ;
+            if(A == B) {
+                ok = 1 ;
+                if(i == 0) cout << "Pattern " << c << " was reflected vertically and rotated 90 degrees." << endl;
+                if(i == 1) cout << "Pattern " << c << " was reflected vertically and rotated 180 degrees." << endl;
+                if(i == 2) cout << "Pattern " << c << " was reflected vertically and rotated 270 degrees." << endl;
+            }
         }
 
-        rotate(A) ;
-        if(A == B) {
-            cout << "Pattern " << c << " was reflected vertically and rotated 180 degrees." << endl;
-            continue ;
-        }
-
-        rotate(A) ;
-        if(A == B) {
-            cout << "Pattern " << c << " was reflected vertically and rotated 90 degrees." << endl;
-            continue ;
-        }
-
-
+        if(ok) continue ;
 
         cout << "Pattern " << c << " was improperly transformed." << endl;
 
