@@ -16,7 +16,7 @@ void sieve() {
 }
 
 const int mod = 1e9 + 9 ;
-int dp[1001][101][170];
+int dp[2][101][170];
 
 int idx(int n) {
     return lower_bound(primes.begin() , primes.end() , n) - primes.begin() ;
@@ -28,31 +28,32 @@ public :
 
     int countDivisors(int N, int K) {
 
-        memset(dp , 0 , sizeof dp) ;
-
         sieve() ;
 
-        for(int i = 0 ; i <= N ; i++) {
+        memset(dp , 0 , sizeof dp);
+
+        bool curN = 0;
+
+        for(int i = 1 ; i <= N ; i++) {
+            curN ^= 1;
+            memset(dp[curN] , 0 , sizeof dp[curN]) ;
             int n = i ;
             int PF_idx = 0 , PF = primes[PF_idx];
             while(PF * PF <= n) {
-                while(n % PF == 0) n /= PF , dp[i][0][PF_idx] ++ ;
+                while(n % PF == 0) n /= PF , dp[curN][0][PF_idx] ++ ;
                 PF = primes[++PF_idx];
             }
-            if(n > 1) dp[i][0][idx(n)] ++ ;
-        }
-
-
-        for(int i = 1  ; i <= N ; i++)
-            for(int j = 1 ; j <= K ; j++)
+            if(n > 1) dp[curN][0][idx(n)] ++;
+            for(int j = 1 ; j <= K ; j++) {
                 for(int k = 0 ; k < primes.size() ; k++)
-                    dp[i][j][k] = (dp[i][j - 1][k] + dp[i - 1][j][k]) % mod;
+                    dp[curN][j][k] = (dp[curN][j - 1][k] + dp[curN ^ 1][j][k]) % mod;
+            }
+        }
 
         ll result = 1 ;
         for(int i = 0 ; i < primes.size() ; i++)
-            result *= (dp[N][K][i] + 1) , result %= mod ;
+            result *= (dp[curN][K][i] + 1) , result %= mod ;
 
         return (int)result ;
     }
-
 };
