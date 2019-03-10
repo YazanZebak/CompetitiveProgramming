@@ -5,7 +5,7 @@
         - Implement the cyclic shift , double the size of the array n = 2 * n 
         - let the first n element equal to zero , and the remaining part equal to the input 
         - start from the right most element put it in (n - i) , i = {1 , 2 , ... , n}
-        - increment the partial sum [n - i + 1 , 2 * n - i - 1] with the value of input[i] 
+        - increment the partial sum [n - i , 2 * n - i - 1] with the value of input[i] 
         - get the min element of the new partial sum and update the answer.    
 */
 #include <bits/stdc++.h>
@@ -79,8 +79,7 @@ int main() {
         int res = 0 ;
 
         for(int i = 2 * n - 1 , j = 1 ; i >= n ; i-- , j++) {
-            update(n - j , n - j , pre[i] - pre[i - 1]);
-            update(n - j + 1 , i - 1 , pre[i] - pre[i - 1]);
+            update(n - j , i - 1 , pre[i] - pre[i - 1]);
             ll ret = query(n - j , i - 1);
             if(ret < 0) continue ;
             res ++ ;
