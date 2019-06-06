@@ -1,3 +1,14 @@
+/*
+     Idea:
+          - let's calc the contribution for each path to the total answer.
+          - for each centroid node, we calc the answer for each path cross from this node.
+          - to do this we need to maintain a cnt array to count for the ith bit how many times it appears as zero/one 
+          - in the path from the centroid node to it's child. (update)
+          - to merge paths, we look at our path and we count for each bit in it how many times it would appear as 1 in other paths 
+          - that start from the centroid node and end in one of it's child and add it to the answer. (dfs)
+          - let's say we have a path its value 5 : 000..00101 for each bit we look for the opposite bit 111..11010 becuase we xoring
+          - and we care only about the active bits, and the contribution of the ith bit is cnt[i][!bit] * 2^i . 
+*/
 #include <bits/stdc++.h>
 typedef long long ll ;
 using namespace std;
