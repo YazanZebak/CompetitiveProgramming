@@ -1,3 +1,10 @@
+/*
+	Idea:
+		- for each column get it's intersection with the circles
+		- we can do that in many ways the easiest is to check if the Cx cord is in the range[x[i] - r[i] , x[i] + r[i]]
+		- and we get the intersection points by (y[i] +/- dist ) we get dist by pythagorean theorem  
+		- now we have ranges we just need to count the gaps between it, we can do that by sweep line.
+*/
 #include <bits/stdc++.h>
 typedef long long ll ;
 using namespace std;
