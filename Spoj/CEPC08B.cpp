@@ -1,3 +1,4 @@
+// Idea : https://github.com/mostafa-saad/MyCompetitiveProgramming/blob/master/SPOJ/SPOJ_CEPC08B.txt
 #include <bits/stdc++.h>
 typedef long long ll ;
 using namespace std;
