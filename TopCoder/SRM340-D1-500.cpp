@@ -19,7 +19,7 @@ struct data{
 vector < data > course ;
 int sp , n , memo[52][52][52];
 
-int solve(int i, int t, int p , int idx = -1){
+int solve(int i, int t, int p){
 
     if(t >= sp && p >= sp) return i ;
     if(i == 50) return inf ;
@@ -37,7 +37,7 @@ int solve(int i, int t, int p , int idx = -1){
 
           if(a == t && b == p) continue ;
 
-          ret = min(ret , solve(i + 1, a , b , j));
+          ret = min(ret , solve(i + 1, a , b));
     }
 
     return ret ;
